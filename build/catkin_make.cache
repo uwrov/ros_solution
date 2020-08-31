@@ -1,2 +1,0 @@
-wb
--DCATKIN_DEVEL_PREFIX=/home/peter/ws/devel -DCMAKE_INSTALL_PREFIX=/home/peter/ws/install -G Unix Makefiles
