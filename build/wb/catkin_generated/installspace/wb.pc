@@ -1,0 +1,8 @@
+prefix=/home/peter/ws/install
+
+Name: wb
+Description: Description of wb
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp gazebo_ros message_runtime rospy
