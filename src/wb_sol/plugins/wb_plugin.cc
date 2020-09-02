@@ -65,6 +65,11 @@
 // on milisecond times not nanosecond.
 #define MS_TO_NS(a) a * 1000000.0
 
+
+// Gazebo Plugin which will read messages from /model_name/model_name/cmd
+// and make a robot simulated in Gazebo move accordingly
+
+
 // So we don't have to do gazebo::everything
 namespace gazebo
 {

@@ -14,7 +14,8 @@ from threading import Thread
 from tools.VideoStream import VideoStream
 
 
-# Do the main loop
+# Publishes messages to /wheely_boi/wheely_boi/cmd
+# Based on an incoming camera feed
 def main():
     # Setup
     src = 'http://192.168.0.11:8080/video/mjpeg'

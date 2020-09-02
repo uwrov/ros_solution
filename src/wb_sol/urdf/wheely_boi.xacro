@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wheely_boi">
+<!-- Constants -->
   <xacro:property name="wheel_separation" value="0.070" />
   <xacro:property name="wheel_radius" value="0.034" />
   <xacro:property name="wheel_width" value="0.010" />
@@ -7,6 +8,7 @@
   <xacro:property name="body_width" value="0.050" />
   <xacro:property name="body_length" value="0.035" />
 
+<!-- Materials -->
   <gazebo reference="edumip_body">
     <material>Gazebo/White</material>
     <mu1>0.2</mu1>
@@ -25,6 +27,7 @@
     <mu2>0.84</mu2>
   </gazebo>
 
+<!-- Physical properties -->
   <link name="edumip_body">
     <visual>
       <geometry>
@@ -44,6 +47,7 @@
     </inertial>
   </link>
 
+<!-- Macro definition of a wheel -->
   <xacro:macro name="wheel_link" params="name radius width mass">
     <link name="${name}">
       <visual>
@@ -65,9 +69,11 @@
     </link>
   </xacro:macro>
 
+<!-- Macro usage -->
   <xacro:wheel_link name="wheelL" radius="${wheel_radius}" width="${wheel_width}" mass="0.03"/>
   <xacro:wheel_link name="wheelR" radius="${wheel_radius}" width="${wheel_width}" mass="0.03"/>
   
+<!-- Joints -->
   <joint name="jointL" type="continuous">
     <parent link="edumip_body"/>
     <child link="wheelL"/>
@@ -84,6 +90,7 @@
     <dynamics friction="0.1"/>
   </joint>
 
+<!-- Plugin Declaration -->
   <gazebo>
     <plugin name="wb_plugin" filename="libwb_plugin.so"> </plugin>
   </gazebo>
