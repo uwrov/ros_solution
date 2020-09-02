@@ -7,10 +7,10 @@ An example workspace for our training project
 2. CD into the cloned directory and make everything using `catkin_make`
 3. Put in the command `source devel/setup.sh` in __any__ terminal which will be using items from your created ROS package.
 
-At this point you will have created a new package `wb` and have updated your ROS management to include files from the new package.
+At this point you will have created a new package `wb_sol` and have updated your ROS management to include files from the new package.
 
 ### Running
-1. CD into the directory `src/wb/urdf`
+1. CD into the directory `src/wb_sol/urdf`
 2. Run these magic spells:
 
 ```
@@ -22,7 +22,7 @@ This will spawn in the wheely_boi model into an empty gazebo world.
 
 3. Launch the keyboard controller:
 ```
-rosrun wb key_in.py
+rosrun wb_sol key_in.py
 ```
 
 4. If you want to run the camera controller, you can either:
