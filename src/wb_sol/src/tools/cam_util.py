@@ -45,7 +45,6 @@ def find_label(frame, network):
             rect = rects[max_rect_i]
 
             #Draw the rectangle we singled out
-            x, y, w, h = rect
             mnist_frame = extract_digit(frame, final_img, rect, pad = 15)
             # cv2.imshow('seen', mnist_frame)
             if mnist_frame is not None:
