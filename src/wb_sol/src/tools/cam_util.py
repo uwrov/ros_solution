@@ -31,7 +31,7 @@ def img_to_mnist(frame):
 # representing a number found in the frame
 def find_label(frame, network):
         final_img = img_to_mnist(frame)
-        contours, _ = cv2.findContours(final_img.copy(), cv2.RETR_EXTERNAL,
+        _, contours, _ = cv2.findContours(final_img.copy(), cv2.RETR_EXTERNAL,
                                         cv2.CHAIN_APPROX_SIMPLE)
 
         rects = [cv2.boundingRect(contour) for contour in contours]

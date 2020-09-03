@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
 import cv2
 import numpy as np
 import torch
 import torchvision
 import time
+import os
 
 import tools.neural as neural
 from tools.cam_util import find_label
@@ -21,8 +24,11 @@ def main():
     src = 'http://192.168.0.11:8080/video/mjpeg'
     wait_time = 1
 
+    dirname = os.path.dirname(__file__)
+    target = os.path.join(dirname, '../src/tools/results/model.pth')
+
     network = neural.Net()
-    network.load_state_dict(torch.load('../src/tools/results/model.pth'))
+    network.load_state_dict(torch.load(target))
 
     velocity_publisher = rospy.Publisher('/wheely_boi/wheely_boi/cmd',
                                          Twist, queue_size=10)
