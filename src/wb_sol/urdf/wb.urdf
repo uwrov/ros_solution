@@ -4,6 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="wheely_boi">
+  <!-- Materials -->
   <gazebo reference="edumip_body">
     <material>Gazebo/White</material>
     <mu1>0.2</mu1>
@@ -19,6 +20,58 @@
     <mu1>0.84</mu1>
     <mu2>0.84</mu2>
   </gazebo>
+  <gazebo reference="camera_link">
+    <material>Gazebo/Green</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+  <gazebo reference="camera_link">
+    <sensor name="camera1" type="camera">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>wheely_boi/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link_optical</frameName>
+        <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
+            between the gazebo sensor image and the frame it is supposed to
+            be attached to -->
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0.0</Cx>
+        <Cy>0.0</Cy>
+        <focalLength>0.0</focalLength>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!-- Physical properties -->
   <link name="edumip_body">
     <visual>
       <geometry>
@@ -33,6 +86,26 @@
     <inertial>
       <mass value="0.18"/>
       <inertia ixx="6.0e-4" ixy="0" ixz="0" iyy="6.0e-4" iyz="0" izz="6.0e-4"/>
+    </inertial>
+  </link>
+  <link name="camera_link">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
   <link name="wheelL">
@@ -67,6 +140,7 @@
       <inertia ixx="1.75e-5" ixy="0.0" ixz="0.0" iyy="1.75e-5" iyz="0.0" izz="1.75e-5"/>
     </inertial>
   </link>
+  <!-- Joints -->
   <joint name="jointL" type="continuous">
     <parent link="edumip_body"/>
     <child link="wheelL"/>
@@ -81,6 +155,13 @@
     <origin rpy="1.5707963267948966 0 0" xyz="0 -0.030000000000000002 -0.04"/>
     <dynamics friction="0.1"/>
   </joint>
+  <joint name="camera_joint" type="fixed">
+    <parent link="edumip_body"/>
+    <child link="camera_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.025 0 0.01"/>
+  </joint>
+  <!-- Plugin Declaration -->
   <gazebo>
     <plugin filename="libwb_plugin.so" name="wb_plugin"> </plugin>
   </gazebo>

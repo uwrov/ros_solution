@@ -1,0 +1,2 @@
+wb_sol
+-DCATKIN_DEVEL_PREFIX=/home/uwrov/ros_solution/devel -DCMAKE_INSTALL_PREFIX=/home/uwrov/ros_solution/install -G Unix Makefiles
