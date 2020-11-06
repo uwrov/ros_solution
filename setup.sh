@@ -80,3 +80,6 @@ export PYTHONPATH=/usr/lib/python3/dist-packages
 
 # source setup
 source ~/ros_catkin_ws/install/setup.bash
+
+# Set graphics instructionto OpenGL2
+echo "export SVGA_VGPU10=0" >> ~/.profile
