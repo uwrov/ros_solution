@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 # keyboard input from user
 def move():
     # Create a new node
-    rospy.init_node('wheely_boi', anonymous=True)
+    rospy.init_node('wheely_boi', anonymous=False)
     
     # Create a publisher and point it to a topic
     velocity_publisher = rospy.Publisher('/wheely_boi/wheely_boi/cmd', Twist, queue_size=10)
