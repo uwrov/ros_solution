@@ -57,3 +57,7 @@ catkin_install_python(PROGRAMS scripts/key_in.py
 catkin_install_python(PROGRAMS scripts/cam_control.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+# Compile the simple subscriber
+add_executable(simp src/simple_sub.cc)
+target_link_libraries(simp ${catkin_LIBRARIES} ${roscpp_LIBRARIES})
