@@ -64,6 +64,13 @@ find ./ -name 'python_distutils_install.sh' -exec sed -i 's/--install-layout=deb
 # install python-empy
 sudo apt install -y python-empy
 
+# install common msgs
+cd ~/ros_catkin_ws/src
+git clone https://github.com/ros/common_msgs.git
+cd common_msgs
+git checkout jade-devel
+cd ~/ros_catkin_ws
+
 # build ros
 catkin build
 
@@ -72,3 +79,13 @@ export PYTHONPATH=/usr/lib/python3/dist-packages
 
 # source setup
 source ~/ros_catkin_ws/install/setup.bash
+
+# isntall pigpio
+cd ~
+wget https://github.com/joan2937/pigpio/archive/master.zip
+unzip master.zip
+cd pigpio-master
+make
+sudo make install
+cd ~
+rm master.zip
