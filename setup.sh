@@ -28,8 +28,10 @@ sudo -H pip3 install rosdep rospkg rosinstall_generator rosinstall wstool vcstoo
 # initialize catkin build environment
 sudo rosdep init && rosdep update
 
+echo "creating workspace directory"
+
 # create catkin workspace
-mkdir -p ~/ros_catkin_ws/src && cd "$_/.."
+mkdir -p /home/pi/ros_catkin_ws/src && cd "$_/.."
 
 # initialize catkin workspace (will show warning about Extending... ignore that)
 catkin config --init -DCMAKE_BUILD_TYPE=Release --blacklist rqt_rviz rviz_plugin_tutorials librviz_tutorial --install
@@ -56,20 +58,20 @@ sudo ./install_skip `rosdep check --from-paths src --ignore-src | grep python | 
 rosdep install --from-paths src --ignore-src -y --skip-keys="`rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g"`"
 
 # rename all old python links to python3
-find . -type f -exec sed -i 's/\/usr\/bin\/env[ ]*\<python\>/\/usr\/bin\/env python3/g' {} +
+sudo sh -c 'find . -type f -exec sed -i 's/\/usr\/bin\/env[ ]*\<python\>/\/usr\/bin\/env python3/g' {} +'
 
 # remove all depricated install-layout=deb arguments
-find ./ -name 'python_distutils_install.sh' -exec sed -i 's/--install-layout=deb//g' {} \;
+sudo sh -c 'find ./ -name 'python_distutils_install.sh' -exec sed -i 's/--install-layout=deb//g' {} \;'
 
 # install python-empy
 sudo apt install -y python-empy
 
 # install common msgs
-cd ~/ros_catkin_ws/src
+cd /home/pi/ros_catkin_ws/src
 git clone https://github.com/ros/common_msgs.git
 cd common_msgs
 git checkout jade-devel
-cd ~/ros_catkin_ws
+cd /home/pi/ros_catkin_ws
 
 # build ros
 catkin build
@@ -78,14 +80,14 @@ catkin build
 export PYTHONPATH=/usr/lib/python3/dist-packages
 
 # source setup
-source ~/ros_catkin_ws/install/setup.bash
+source /home/pi/ros_catkin_ws/install/setup.bash
 
 # isntall pigpio
-cd ~
+cd /home/pi
 wget https://github.com/joan2937/pigpio/archive/master.zip
 unzip master.zip
 cd pigpio-master
 make
 sudo make install
-cd ~
+cd /home/pi
 rm master.zip
