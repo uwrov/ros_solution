@@ -25,13 +25,14 @@ sudo ln -s /usr/bin/pip3 /usr/bin/pip
 # install the ros dependencies
 sudo -H pip3 install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_tools catkin_pkg
 
-# initialize catkin build environment
-sudo rosdep init && rosdep update
-
 echo "creating workspace directory"
 
 # create catkin workspace
-mkdir -p /home/pi/ros_catkin_ws/src && cd "$_/.."
+mkdir -p /home/pi/ros_catkin_ws/src && cd /home/pi/ros_catkin_ws
+
+# initialize catkin build environment
+sudo rosdep init && rosdep update
+sudo catkin init .
 
 # initialize catkin workspace (will show warning about Extending... ignore that)
 catkin config --init -DCMAKE_BUILD_TYPE=Release --blacklist rqt_rviz rviz_plugin_tutorials librviz_tutorial --install
